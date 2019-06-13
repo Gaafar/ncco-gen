@@ -1,0 +1,55 @@
+<link href="//cdn.muicss.com/mui-0.9.41/css/mui.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdn.muicss.com/mui-0.9.41/js/mui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.4/ace.js"></script>
+
+<style type="text/css" media="screen">
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    padding-bottom: 40px;
+  }
+  #editor {
+    flex:1;
+  }
+</style>
+
+<div id="editor"></div>
+
+<div>
+  <button onclick="generateUrl()" class="mui-btn mui-btn--accent">get url</button>
+  <button onclick="generateAndCopyUrl()" class="mui-btn mui-btn--accent">get & copy url</button>
+</div>
+
+<div>
+  <input id="out" style="position: absolute; left: -1000px; top: -1000px" type="text"></input>
+  <a id="link" href=""></a>
+</div>
+
+
+<script>
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/dracula");
+  editor.session.setMode("ace/mode/json");
+  editor.setValue(`[
+  {
+    "action": "talk",
+    "text": "Press 1 for pizza or 2 for burger"
+  }
+]`)
+
+  function generateUrl() {
+    const param = encodeURIComponent(btoa(JSON.stringify(eval(editor.getValue()))));
+    const url = location.href + "?ncco=" + param;
+    link.href = url;
+    link.innerText = url;
+    out.value = url;
+  }
+
+  function generateAndCopyUrl() {
+    generateUrl();
+    out.select();
+    document.execCommand("copy");
+  }
+</script>

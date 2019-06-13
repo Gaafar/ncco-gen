@@ -9,8 +9,6 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "static/index.html"));
     return;
   }
-  console.log(ncco);
-
   res.json(JSON.parse(Buffer.from(ncco, "base64")));
 });
 

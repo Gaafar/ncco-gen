@@ -43,7 +43,7 @@
   function generateUrl() {
     const ncco = editor.getValue();
     localStorage['ncco'] = ncco;
-    const param = encodeURIComponent(btoa(JSON.stringify(ncco)));
+    const param = btoa(JSON.stringify(eval(ncco)));
     const url = location.href + "?ncco=" + param;
     link.href = url;
     link.innerText = url;

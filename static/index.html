@@ -27,20 +27,23 @@
   <a id="link" href=""></a>
 </div>
 
-
 <script>
   var editor = ace.edit("editor");
   editor.setTheme("ace/theme/dracula");
   editor.session.setMode("ace/mode/json");
-  editor.setValue(`[
+  const defaultNcco = `[
   {
     "action": "talk",
     "text": "Press 1 for pizza or 2 for burger"
   }
-]`)
+]`
+  const lastNcco = localStorage['ncco'];
+  editor.setValue(lastNcco || defaultNcco)
 
   function generateUrl() {
-    const param = encodeURIComponent(btoa(JSON.stringify(eval(editor.getValue()))));
+    const ncco = editor.getValue();
+    localStorage['ncco'] = ncco;
+    const param = encodeURIComponent(btoa(JSON.stringify(ncco)));
     const url = location.href + "?ncco=" + param;
     link.href = url;
     link.innerText = url;

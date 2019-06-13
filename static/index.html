@@ -53,13 +53,17 @@
   <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/dracula");
-    editor.session.setMode("ace/mode/json");
+    editor.session.setOptions({
+        mode: "ace/mode/json",
+        tabSize: 2,
+        useSoftTabs: true
+    });
     const defaultNcco = `[
-    {
-      "action": "talk",
-      "text": "Press 1 for pizza or 2 for burger"
-    }
-  ]`;
+  {
+    "action": "talk",
+    "text": "Press 1 for pizza or 2 for burger"
+  }
+]`;
 
     const lastNcco = localStorage['ncco'];
     editor.setValue(lastNcco || defaultNcco)
